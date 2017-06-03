@@ -1,18 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
 
-import { AppComponent } from './app.component';
-import {AlertModule} from "ngx-bootstrap";
+import {AppComponent} from "./app.component";
+import {AlertModule, TabsModule} from "ngx-bootstrap";
+import {PlayerTable} from "./components/players-table/players-table.component";
+import {DataTableModule, SharedModule} from "primeng/primeng";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlayerTable
   ],
   imports: [
     BrowserModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    TabsModule.forRoot(),
+    DataTableModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
