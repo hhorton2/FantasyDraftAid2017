@@ -46,3 +46,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+##Build Folder for Angular
+src/main/resources/Angular/
