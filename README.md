@@ -2,14 +2,14 @@
 A Web Application that provide fantasy football draft help.
 
 
-#Prereqs
+# Prereqs
 coming soon
 
-#Setting up
+# Setting up
 coming soon
 
-#Importing your data
+# Importing your data
 coming soon
 
-#Running the App
+# Running the App
 coming soon
