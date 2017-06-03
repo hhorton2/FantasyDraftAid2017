@@ -1,2 +1,16 @@
-<alert type="success">hello</alert>
-
+<div class="row">
+  <tabset [justified]="true">
+    <tab heading="All" (select)="changeData('all')"></tab>
+    <tab heading="QB" (select)="changeData('qb')"></tab>
+    <tab heading="RB" (select)="changeData('rb')"></tab>
+    <tab heading="WR" (select)="changeData('wr')"></tab>
+    <tab heading="TE" (select)="changeData('te')"></tab>
+    <tab heading="Flex" (select)="changeData('flex')"></tab>
+    <tab heading="K" (select)="changeData('k')"></tab>
+    <tab heading="DEF" (select)="changeData('def')"></tab>
+  </tabset>
+</div>
+<div class="row" style="margin-top: 10px">
+  <players-table [players]="players">
+  </players-table>
+</div>
