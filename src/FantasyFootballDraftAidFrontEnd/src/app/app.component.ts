@@ -21,6 +21,7 @@ export class AppComponent {
     this.all = [new Player(
       "Drew Brees",
       "QB",
+      2,
       1,
       1,
       1,
@@ -32,6 +33,7 @@ export class AppComponent {
       new Player(
         "Tom Brady",
         "QB",
+        2,
         2,
         2,
         2,

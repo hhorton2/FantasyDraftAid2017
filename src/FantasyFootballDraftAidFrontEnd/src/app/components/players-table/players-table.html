@@ -16,6 +16,7 @@
     <p-dataTable [value]="players" [resizableColumns]="true" selectionMode="single" [(selection)]="selectedPlayer">
       <p-column field="name" header="Name" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
       <p-column field="position" header="Position" [sortable]="true"></p-column>
+      <p-column field="projectedPoints" header="Projected Points" [sortable]="true"></p-column>
       <p-column field="previousYearPoints" header="Points Last Year" [sortable]="true"></p-column>
       <p-column field="twoYearAgoPoints" header="Points 2 Years Ago" [sortable]="true"></p-column>
       <p-column field="threeYearAgoPoints" header="Points 3 Years Ago" [sortable]="true"></p-column>
