@@ -19,7 +19,7 @@ public class GetAllQuarterbacksWhoPlayedInSeason {
 
 
     public List<Map<String, Object>> execute(int season) {
-        return this.jdbcTemplate.queryForList("SELECT DISTINCT player.player_id, full_name " +
+        return this.jdbcTemplate.queryForList("SELECT DISTINCT player.player_id, full_name, player.position " +
                 "FROM play_player " +
                 "LEFT JOIN player " +
                 "ON play_player.player_id = player.player_id " +

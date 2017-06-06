@@ -1,6 +1,6 @@
 package org.hhorton.services;
 
-import org.hhorton.queries.passing.GetRegularseasonPassingYardsByIDAndSeason;
+import org.hhorton.queries.passing.GetRegularSeasonPassingStatsByPlayerIDAndSeason;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,6 @@ public class PassingService {
     }
 
     public Map<String, Object> getPassingStatsByPlayerIDAndSeason(String playerID, int season) {
-        return new GetRegularseasonPassingYardsByIDAndSeason(this.jdbcTemplate).execute(playerID, season);
+        return new GetRegularSeasonPassingStatsByPlayerIDAndSeason(this.jdbcTemplate).execute(playerID, season);
     }
 }
