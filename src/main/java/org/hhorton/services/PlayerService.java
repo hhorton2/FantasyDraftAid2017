@@ -1,9 +1,6 @@
 package org.hhorton.services;
 
-import org.hhorton.queries.lists.GetAllQuarterbacksWhoPlayedInSeason;
-import org.hhorton.queries.lists.GetAllRunningBacksWhoPlayedInSeason;
-import org.hhorton.queries.lists.GetAllTideEndsWhoPlayedInSeason;
-import org.hhorton.queries.lists.GetAllWideReceiversWhoPlayedInSeason;
+import org.hhorton.queries.lists.*;
 import org.hhorton.queries.passing.GetRegularSeasonPassingStatsByPlayerIDAndSeason;
 import org.hhorton.queries.receiving.GetRegularSeasonReceivingStatsByPlayerIDAndYear;
 import org.hhorton.queries.rushing.GetRegularSeasonRushingStatsByPlayerIDAndSeason;
@@ -28,9 +25,12 @@ public class PlayerService {
     }
 
     public List<Map<String, Object>> getAllQuarterBacksFromSeason(int season) {
-        List<Map<String, Object>> result = new GetAllQuarterbacksWhoPlayedInSeason(this.jdbcTemplate).execute(season);
+        return new GetAllQuarterbacksWhoPlayedInSeason(this.jdbcTemplate).execute(season);
+    }
+
+    public List<Map<String, Object>> getAllQuarterBacksFromSeasonWithStats(int season) {
+        List<Map<String, Object>> result = new GetAllQuarterbacksWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season);
         for (Map<String, Object> qb : result) {
-            qb.putAll(new GetRegularSeasonPassingStatsByPlayerIDAndSeason(this.jdbcTemplate).execute((String) qb.get("player_id"), season));
             long passing_yards = (long) qb.get("passing_yards");
             long passing_tds = (long) qb.get("passing_touchdowns");
             qb.put("points", getQBPoints(passing_yards, passing_tds));

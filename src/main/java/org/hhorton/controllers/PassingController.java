@@ -32,6 +32,11 @@ public class PassingController {
         return ResponseEntity.ok(this.playerService.getAllQuarterBacksFromSeason(season));
     }
 
+    @RequestMapping("/{season}/stats")
+    public ResponseEntity<List<Map<String, Object>>> getAllQbsWithStats(@PathVariable int season) {
+        return ResponseEntity.ok(this.playerService.getAllQuarterBacksFromSeasonWithStats(season));
+    }
+
     @RequestMapping("/{season}/{playerID}")
     public ResponseEntity<Map<String, Object>> getPlayerPassingStats(@PathVariable int season, @PathVariable String playerID) {
         return ResponseEntity.ok(this.passingService.getPassingStatsByPlayerIDAndSeason(playerID, season));
