@@ -31,6 +31,11 @@ public class ReceivingController {
         return ResponseEntity.ok(this.playerService.getAllWideReceiversFromSeason(season));
     }
 
+    @RequestMapping("/wr/{season}/stats")
+    public ResponseEntity<List<Map<String, Object>>> getAllWrsWithStats(@PathVariable int season) {
+        return ResponseEntity.ok(this.playerService.getAllWideReceiversFromSeasonWithStats(season));
+    }
+
     @RequestMapping("/te/{season}")
     public ResponseEntity<List<Map<String, Object>>> getAllTes(@PathVariable int season) {
         return ResponseEntity.ok(this.playerService.getAllTideEndsFromSeason(season));
