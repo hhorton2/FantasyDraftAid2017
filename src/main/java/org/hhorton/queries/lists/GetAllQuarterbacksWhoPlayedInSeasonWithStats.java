@@ -19,7 +19,18 @@ public class GetAllQuarterbacksWhoPlayedInSeasonWithStats {
 
 
     public List<Map<String, Object>> execute(int season) {
-        return this.jdbcTemplate.queryForList("SELECT DISTINCT player.player_id, full_name, player.position, sum(passing_yds) as passing_yards, sum(passing_cmp) as passing_completions,  sum(passing_att) AS passing_attempts, sum(passing_tds) as passing_touchdowns   " +
+        return this.jdbcTemplate.queryForList("SELECT DISTINCT " +
+                "player.player_id, " +
+                "full_name, " +
+                "player.position, " +
+                "sum(passing_yds) AS passing_yards, " +
+                "sum(passing_cmp) AS passing_completions, " +
+                "sum(passing_att) AS passing_attempts, " +
+                "sum(passing_tds) AS passing_touchdowns, " +
+                "sum(passing_int) AS passing_interceptions, " +
+                "sum(rushing_yds)  AS rushing_yards, " +
+                "sum(rushing_tds)  AS rushing_touchdowns, " +
+                "sum(fumbles_lost) AS fumbles " +
                 "FROM play_player " +
                 "LEFT JOIN player " +
                 "ON play_player.player_id = player.player_id " +
