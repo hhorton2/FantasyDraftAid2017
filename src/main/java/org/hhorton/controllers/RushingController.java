@@ -31,8 +31,13 @@ public class RushingController {
         return ResponseEntity.ok(this.playerService.getAllRunningBacksFromSeason(season));
     }
 
+    @RequestMapping("/{season}/stats")
+    public ResponseEntity<List<Map<String, Object>>> getAllRbsWithStats(@PathVariable int season) {
+        return ResponseEntity.ok(this.playerService.getAllRunningBacksFromSeasonWithStats(season));
+    }
+
     @RequestMapping("/{season}/{playerID}")
-    public ResponseEntity<Map<String, Object>> getPlayerReceivingStats(@PathVariable int season, @PathVariable String playerID) {
+    public ResponseEntity<Map<String, Object>> getPlayerRushingStats(@PathVariable int season, @PathVariable String playerID) {
         return ResponseEntity.ok(this.rushingService.getRushingStatsByPlayerIDAndSeason(playerID, season));
     }
 }

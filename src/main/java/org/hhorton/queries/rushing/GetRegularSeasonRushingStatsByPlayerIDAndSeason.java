@@ -18,7 +18,15 @@ public class GetRegularSeasonRushingStatsByPlayerIDAndSeason {
 
 
     public Map<String, Object> execute(String playerID, int season) {
-        return this.jdbcTemplate.queryForMap("SELECT sum(rushing_yds) as rushing_yards, sum(rushing_att) as rushing_attemps, sum(rushing_tds) as rushing_touchdowns " +
+        return this.jdbcTemplate.queryForMap("SELECT " +
+                "sum(rushing_yds)                    AS rushing_yards,\n" +
+                "sum(rushing_tds)                    AS rushing_touchdowns,\n" +
+                "sum(rushing_att)                    AS rushing_attempts,\n" +
+                "sum(receiving_yds)                  AS receiving_yards,\n" +
+                "sum(receiving_tds)                  AS receiving_touchdowns,\n" +
+                "sum(receiving_rec)                  AS receptions,\n" +
+                "sum(kickret_tds) + sum(puntret_tds) AS return_touchdowns,\n" +
+                "sum(fumbles_lost) AS fumbles " +
                 "FROM play_player " +
                 "  LEFT JOIN game " +
                 "    ON play_player.gsis_id = game.gsis_id " +
