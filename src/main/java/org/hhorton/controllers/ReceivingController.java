@@ -38,11 +38,11 @@ public class ReceivingController {
 
     @RequestMapping("/te/{season}")
     public ResponseEntity<List<Map<String, Object>>> getAllTes(@PathVariable int season) {
-        return ResponseEntity.ok(this.playerService.getAllTideEndsFromSeason(season));
+        return ResponseEntity.ok(this.playerService.getAllTightEndsFromSeason(season));
     }
 
-    @RequestMapping("/{season}/{playerID}")
-    public ResponseEntity<Map<String, Object>> getPlayerReceivingStats(@PathVariable int season, @PathVariable String playerID) {
-        return ResponseEntity.ok(this.receivingService.getReceivingStatsByPlayerIDAndSeason(playerID, season));
+    @RequestMapping("/te/{season}/stats")
+    public ResponseEntity<List<Map<String, Object>>> getAllTesWithStats(@PathVariable int season) {
+        return ResponseEntity.ok(this.playerService.getAllTightEndsFromSeasonWithStats(season));
     }
 }

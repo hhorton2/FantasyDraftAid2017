@@ -1,8 +1,6 @@
 package org.hhorton.services;
 
 import org.hhorton.queries.lists.*;
-import org.hhorton.queries.receiving.GetRegularSeasonReceivingStatsByPlayerIDAndSeason;
-import org.hhorton.utility.SortUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -44,12 +42,8 @@ public class PlayerService {
     }
 
     public List<Map<String, Object>> getAllWideReceiversFromSeason(int season) {
-        List<Map<String, Object>> result = new GetAllWideReceiversWhoPlayedInSeason(this.jdbcTemplate).execute(season);
-        for (Map<String, Object> wr : result) {
-            wr.putAll(new GetRegularSeasonReceivingStatsByPlayerIDAndSeason(this.jdbcTemplate).execute((String) wr.get("player_id"), season));
-        }
-        SortUtility.sortList(result, "receiving_yards");
-        return result;
+        return new GetAllWideReceiversWhoPlayedInSeason(this.jdbcTemplate).execute(season);
+
     }
 
     public List<Map<String, Object>> getAllWideReceiversFromSeasonWithStats(int season) {
@@ -58,13 +52,15 @@ public class PlayerService {
                         new GetAllWideReceiversWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
     }
 
-    public List<Map<String, Object>> getAllTideEndsFromSeason(int season) {
-        List<Map<String, Object>> result = new GetAllTightEndsWhoPlayedInSeason(this.jdbcTemplate).execute(season);
-        for (Map<String, Object> te : result) {
-            te.putAll(new GetRegularSeasonReceivingStatsByPlayerIDAndSeason(this.jdbcTemplate).execute((String) te.get("player_id"), season));
-        }
-        SortUtility.sortList(result, "receiving_yards");
-        return result;
+    public List<Map<String, Object>> getAllTightEndsFromSeason(int season) {
+        return new GetAllTightEndsWhoPlayedInSeason(this.jdbcTemplate).execute(season);
+
+    }
+
+    public List<Map<String, Object>> getAllTightEndsFromSeasonWithStats(int season) {
+        return new ReceivingService(this.jdbcTemplate)
+                .getReceivingStatsForPlayersBySeason(season,
+                        new GetAllTightEndsWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
     }
 
 }

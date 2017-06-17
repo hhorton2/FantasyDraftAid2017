@@ -11,11 +11,11 @@ import java.util.Map;
  * Created by hunterhorton on 6/5/17.
  */
 @Repository
-public class GetAllTideEndsWhoPlayedInSeason {
+public class GetAllTightEndsWhoPlayedInSeason {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public GetAllTideEndsWhoPlayedInSeason(JdbcTemplate jdbcTemplate) {
+    public GetAllTightEndsWhoPlayedInSeason(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
