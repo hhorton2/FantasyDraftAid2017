@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Map;
@@ -39,6 +38,6 @@ public class KickingController {
 
     @RequestMapping("/{season}/{playerID}")
     public ResponseEntity<Map<String, Object>> getPlayerKickingStats(@PathVariable int season, @PathVariable String playerID) {
-        throw new NotImplementedException();
+        return ResponseEntity.ok(this.kickingService.getKickingStatsByPlayerIDAndSeason(playerID, season));
     }
 }

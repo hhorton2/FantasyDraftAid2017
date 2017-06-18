@@ -74,4 +74,14 @@ public class PlayerService {
                         new GetAllKickersWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
     }
 
+    public List<Map<String, Object>> getAllDefensesFromSeason(int season) {
+        return new GetAllDefensesWhoPlayedInSeason(this.jdbcTemplate).execute(season);
+
+    }
+
+    public List<Map<String, Object>> getAllDefensesFromSeasonWithStats(int season) {
+        return new DefenseService(this.jdbcTemplate)
+                .getDefensiveStatsForTeamsBySeason(season,
+                        new GetAllDefensesWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
+    }
 }

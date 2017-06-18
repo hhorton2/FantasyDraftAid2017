@@ -74,7 +74,7 @@ public class KickingService {
             Map<String, Object> prior_players;
             try {
                 prior_players = new GetRegularSeasonKickingStatsByPlayerIDAndSeason(this.jdbcTemplate).execute((String) k.get("player_id"), season - i);
-            }catch (EmptyResultDataAccessException ex){
+            } catch (EmptyResultDataAccessException ex) {
                 continue;
             }
             threeYearPointSum += i > 2 ? getKPoints(prior_players) : 0;
