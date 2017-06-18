@@ -85,18 +85,20 @@ public class KickingService {
     }
 
     private long getKPoints(Map<String, Object> k) {
+        long xp = k.get("extra_points") != null ? (long) k.get("extra_points") : 0L;
         long fg1 = k.get("fg_0_to_19") != null ? (long) k.get("fg_0_to_19") : 0L;
         long fg2 = k.get("fg_20_to_29") != null ? (long) k.get("fg_20_to_29") : 0L;
         long fg3 = k.get("fg_30_to_39") != null ? (long) k.get("fg_30_to_39") : 0L;
         long fg4 = k.get("fg_40_to_49") != null ? (long) k.get("fg_40_to_49") : 0L;
         long fg5 = k.get("fg_50_plus") != null ? (long) k.get("fg_50_plus") : 0L;
 
+        long xpPoints = xp * PointsRules.Each_extra;
         long fg1Points = fg1 * PointsRules.Field_goal_0_to_19_yards_;
         long fg2Points = fg2 * PointsRules.Field_goal_20_to_29_yards_;
         long fg3Points = fg3 * PointsRules.Field_goal_30_to_39_yards_;
         long fg4Points = fg4 * PointsRules.Field_goal_40_to_49_yards_;
         long fg5Points = fg5 * PointsRules.Field_goal_50_plus_yards_;
 
-        return fg1Points + fg2Points + fg3Points + fg4Points + fg5Points;
+        return xpPoints + fg1Points + fg2Points + fg3Points + fg4Points + fg5Points;
     }
 }
