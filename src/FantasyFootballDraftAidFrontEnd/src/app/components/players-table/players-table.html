@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3 text-center">
+      <h1 *ngIf="selectedPlayer != null">{{selectedPlayer.name}}  </h1>
+      <h1 *ngIf="selectedPlayer == null">No Player Selected</h1>
+      <button type="button" class="btn btn-primary" (click)="alert('Drafted');" [disabled]="selectedPlayer == null">
+        Draft
+        Player
+      </button>
+    </div>
+  </div>
+</div>
+<div style="margin-top: 10px; margin-bottom: 10px"></div>
+<div class="row">
+  <div class="col-lg-10 col-lg-offset-1">
+    <p-dataTable [value]="players" [resizableColumns]="true" selectionMode="single" [(selection)]="selectedPlayer">
+      <p-column field="name" header="Name" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+      <p-column field="position" header="Position" [sortable]="true"></p-column>
+      <p-column field="projectedPoints" header="Projected Points" [sortable]="true"></p-column>
+      <p-column field="previousYearPoints" header="Points Last Year" [sortable]="true"></p-column>
+      <p-column field="twoYearAgoPoints" header="Points 2 Years Ago" [sortable]="true"></p-column>
+      <p-column field="threeYearAgoPoints" header="Points 3 Years Ago" [sortable]="true"></p-column>
+      <p-column field="threeYearChange" header="% change past 3" [sortable]="true"></p-column>
+      <p-column field="fiveYearChange" header="% change past 5" [sortable]="true"></p-column>
+      <p-column field="newTeam" header="New Team" [sortable]="true"></p-column>
+      <p-column field="rookie" header="Rookie" [sortable]="true"></p-column>
+    </p-dataTable>
+  </div>
+</div>
