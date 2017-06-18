@@ -22,6 +22,8 @@ public class GetAllRunningBacksWhoPlayedInSeasonWithStats {
         return this.jdbcTemplate.queryForList("SELECT DISTINCT\n" +
                 "  player.player_id,\n" +
                 "  player.full_name,\n" +
+                "player.position," +
+                "count(DISTINCT play_player.gsis_id) AS games_played, " +
                 "  sum(rushing_yds)                    AS rushing_yards,\n" +
                 "  sum(rushing_tds)                    AS rushing_touchdowns,\n" +
                 "  sum(rushing_att)                    AS rushing_attempts,\n" +

@@ -22,6 +22,8 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
         return this.jdbcTemplate.queryForList("SELECT\n" +
                 "  player.player_id,\n" +
                 "  full_name,\n" +
+                "player.position, " +
+                "count(DISTINCT play_player.gsis_id) AS games_played, " +
                 " coalesce(sum(play_player.kicking_xpmade),0) AS extra_points,\n" +
                 "  coalesce(sum(play_player.kicking_fgm), 0) + coalesce(fg1.fgm,0) + coalesce(fg2.fgm,0) + coalesce(fg3.fgm,0) + coalesce(fg4.fgm,0) AS fgm,\n" +
                 "  coalesce(sum(play_player.kicking_fgm),0) AS fg_0_to_19,\n" +

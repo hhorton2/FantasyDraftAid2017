@@ -22,7 +22,8 @@ public class GetAllDefensesWhoPlayedInSeasonWithStats {
 
     public List<Map<String, Object>> execute(int season) {
         return this.jdbcTemplate.queryForList("SELECT\n" +
-                "  play_player.team,\n" +
+                "  play_player.team as full_name,\n" +
+                "count(DISTINCT play_player.gsis_id) AS games_played, " +
                 "  sum(play_player.defense_int)                                                                             AS interceptions,\n" +
                 "  sum(play_player.defense_sk)                                                                              AS sacks,\n" +
                 "  sum(\n" +

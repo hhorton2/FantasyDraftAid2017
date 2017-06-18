@@ -3,6 +3,7 @@ package org.hhorton.services;
 import org.hhorton.queries.rushing.GetRegularSeasonRushingStatsByPlayerIDAndSeason;
 import org.hhorton.rules.PointsRules;
 import org.hhorton.utility.CalculationUtility;
+import org.hhorton.utility.RarityUltility;
 import org.hhorton.utility.SortUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,8 +38,11 @@ public class RushingService {
     private void getPointsFromStats(int season, List<Map<String, Object>> players) {
         for (Map<String, Object> rb : players) {
             rb.put("points", getRBPoints(rb));
+            rb.put("ppg", getRBPoints(rb) / (long) rb.get("games_played"));
             getPreviousSeasonsAveragePointsForRB(season, rb);
         }
+        RarityUltility.getPositionRarity(players);
+
     }
 
     private void getTopTwentyFivePercentPercentDiff(List<Map<String, Object>> players) {

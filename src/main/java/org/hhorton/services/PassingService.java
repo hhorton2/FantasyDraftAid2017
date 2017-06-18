@@ -3,6 +3,7 @@ package org.hhorton.services;
 import org.hhorton.queries.passing.GetRegularSeasonPassingStatsByPlayerIDAndSeason;
 import org.hhorton.rules.PointsRules;
 import org.hhorton.utility.CalculationUtility;
+import org.hhorton.utility.RarityUltility;
 import org.hhorton.utility.SortUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,8 +38,10 @@ public class PassingService {
     private void getPointsFromStats(int season, List<Map<String, Object>> players) {
         for (Map<String, Object> qb : players) {
             qb.put("points", getQBPoints(qb));
+            qb.put("ppg", getQBPoints(qb)/(long)qb.get("games_played"));
             getPreviousSeasonsAveragePointsForQB(season, qb);
         }
+        RarityUltility.getPositionRarity(players);
     }
 
     private void getTopTwentyFivePercentPercentDiff(List<Map<String, Object>> players) {

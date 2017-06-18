@@ -23,6 +23,7 @@ public class GetAllQuarterbacksWhoPlayedInSeasonWithStats {
                 "player.player_id, " +
                 "full_name, " +
                 "player.position, " +
+                "count(DISTINCT play_player.gsis_id) AS games_played, " +
                 "sum(passing_yds) AS passing_yards, " +
                 "sum(passing_cmp) AS passing_completions, " +
                 "sum(passing_att) AS passing_attempts, " +

@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Player} from "../../domain/player";
+import {Component, Input, OnInit} from "@angular/core";
 
 @Component({
   selector: 'players-table',
@@ -7,8 +6,8 @@ import {Player} from "../../domain/player";
   styleUrls: ['./players-table.css']
 })
 export class PlayerTable implements OnInit {
-  @Input() players: Player[];
-  selectedPlayer: Player = null;
+  @Input() players: any[];
+  selectedPlayer: any = null;
 
   constructor() {
   }

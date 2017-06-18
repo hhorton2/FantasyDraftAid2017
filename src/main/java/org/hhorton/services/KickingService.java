@@ -4,6 +4,7 @@ import org.hhorton.queries.kicking.GetRegularSeasonKickingStatsByPlayerIDAndSeas
 import org.hhorton.queries.rushing.GetRegularSeasonRushingStatsByPlayerIDAndSeason;
 import org.hhorton.rules.PointsRules;
 import org.hhorton.utility.CalculationUtility;
+import org.hhorton.utility.RarityUltility;
 import org.hhorton.utility.SortUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -40,8 +41,10 @@ public class KickingService {
     private void getPointsFromStats(int season, List<Map<String, Object>> players) {
         for (Map<String, Object> k : players) {
             k.put("points", getKPoints(k));
+            k.put("ppg", getKPoints(k) / (long) k.get("games_played"));
             getPreviousSeasonsAveragePointsForK(season, k);
         }
+        RarityUltility.getPositionRarity(players);
     }
 
     private void getTopTwentyFivePercentPercentDiff(List<Map<String, Object>> players) {

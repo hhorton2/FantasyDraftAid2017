@@ -4,6 +4,7 @@ import org.hhorton.queries.defense.GetRegularSeasonDefensivePointsAllowedByTeamA
 import org.hhorton.queries.defense.GetRegularSeasonDefensiveStatsByTeamAndSeason;
 import org.hhorton.rules.PointsRules;
 import org.hhorton.utility.CalculationUtility;
+import org.hhorton.utility.RarityUltility;
 import org.hhorton.utility.SortUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -43,8 +44,10 @@ public class DefenseService {
         for (Map<String, Object> team : teams) {
             getPointsAllowedStats(season, team);
             team.put("points", getDefPoints(team));
+            team.put("ppg", getDefPoints(team) / (long) team.get("games_played"));
             getPreviousSeasonsAveragePointsForTeam(season, team);
         }
+        RarityUltility.getPositionRarity(teams);
     }
 
     private void getPointsAllowedStats(int season, Map<String, Object> team) {
@@ -111,7 +114,7 @@ public class DefenseService {
         for (int i = 5; i != 0; i--) {
             Map<String, Object> prior_team;
             try {
-                prior_team = new GetRegularSeasonDefensiveStatsByTeamAndSeason(this.jdbcTemplate).execute((String) team.get("team"), season - i);
+                prior_team = new GetRegularSeasonDefensiveStatsByTeamAndSeason(this.jdbcTemplate).execute((String) team.get("full_name"), season - i);
                 getPointsAllowedStats(season - i, prior_team);
             } catch (EmptyResultDataAccessException ex) {
                 continue;

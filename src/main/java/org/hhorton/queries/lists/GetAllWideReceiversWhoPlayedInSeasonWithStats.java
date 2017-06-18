@@ -22,6 +22,8 @@ public class GetAllWideReceiversWhoPlayedInSeasonWithStats {
         return this.jdbcTemplate.queryForList("SELECT DISTINCT\n" +
                 "  player.player_id,\n" +
                 "  player.full_name,\n" +
+                "player.position," +
+                "count(DISTINCT play_player.gsis_id) AS games_played, " +
                 "  sum(receiving_yds)                  AS receiving_yards,\n" +
                 "  sum(receiving_tds)                  AS receiving_touchdowns,\n" +
                 "  sum(receiving_rec)                  AS receptions,\n" +

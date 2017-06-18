@@ -1,5 +1,9 @@
 import {Component} from "@angular/core";
-import {Player} from "./domain/player";
+import {PassingService} from "./services/passing.service";
+import {ReceivingService} from "./services/receiving.service";
+import {KickingService} from "./services/kicking.service";
+import {DefenseService} from "./services/defense.service";
+import {RushingService} from "./services/rushing.service";
 
 @Component({
   selector: 'app-root',
@@ -7,102 +11,74 @@ import {Player} from "./domain/player";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  currentPlayers: Player[] = [];
-  all: Player[] = [];
-  wr: Player[] = [];
-  qb: Player[] = [];
-  rb: Player[] = [];
-  flex: Player[] = [];
-  te: Player[] = [];
-  k: Player[] = [];
-  def: Player[] = [];
+  currentPlayers: any[] = [];
+  all: any[] = [];
+  wr: any[] = [];
+  qb: any[] = [];
+  rb: any[] = [];
+  flex: any[] = [];
+  te: any[] = [];
+  k: any[] = [];
+  def: any[] = [];
 
-  constructor() {
-    this.all = [new Player(
-      "Drew Brees",
-      "QB",
-      2,
-      1,
-      1,
-      1,
-      1,
-      1,
-      true,
-      true
-    ),
-      new Player(
-        "Tom Brady",
-        "QB",
-        2,
-        2,
-        2,
-        2,
-        54,
-        -2,
-        true,
-        true
-      )];
+  constructor(private ps: PassingService, private rec: ReceivingService, private ks: KickingService, private ds: DefenseService, private rsh: RushingService) {
+    this.ps.getQuarterbacks(2016).subscribe(res => {
+      this.qb = res;
+      this.all = this.all.concat(this.qb);
+    });
+    this.rec.getWideReceivers(2016).subscribe(res => {
+      this.wr = res;
+      this.all = this.all.concat(this.wr);
+      this.flex = this.flex.concat(this.wr);
+    });
+    this.rec.getTightEnds(2016).subscribe(res => {
+      this.te = res;
+      this.all = this.all.concat(this.te);
+      this.flex = this.flex.concat(this.te);
+    });
+    this.rsh.getRunningBacks(2016).subscribe(res => {
+      this.rb = res;
+      this.all = this.all.concat(this.rb);
+      this.flex = this.flex.concat(this.rb);
+    });
+    this.ks.getKickers(2016).subscribe(res => {
+      this.k = res;
+      this.all = this.all.concat(this.k);
+    });
+    this.ds.getDefenses(2016).subscribe(res => {
+      console.log(res);
+      this.def = res;
+      this.all = this.all.concat(this.def);
+    });
     this.currentPlayers = this.all;
   }
 
   changeData(dataset: string) {
     this.currentPlayers = [];
-    switch (dataset){
+    switch (dataset) {
       case 'all':
-        if(this.all.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.all;
-        }
+        this.currentPlayers = this.all;
         break;
       case 'qb':
-        if(this.qb.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.qb;
-        }
+        this.currentPlayers = this.qb;
         break;
       case 'rb':
-        if(this.rb.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.rb;
-        }
+        this.currentPlayers = this.rb;
         break;
       case 'wr':
-        if(this.wr.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.wr;
-        }
+        this.currentPlayers = this.wr;
         break;
       case 'te':
-        if(this.te.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.te;
-        }
+        this.currentPlayers = this.te;
         break;
       case 'flex':
-        if(this.flex.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.flex;
-        }
+        this.currentPlayers = this.flex;
         break;
       case 'k':
-        if(this.k.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.k;
-        }
+        this.currentPlayers = this.k;
         break;
       case 'def':
-        if(this.def.length == 0){
-          //get from server
-        }else{
-          this.currentPlayers = this.def;
-        }
+        this.currentPlayers = this.def;
         break;
       default:
         this.currentPlayers = this.all;
