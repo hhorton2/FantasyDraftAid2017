@@ -26,7 +26,7 @@ public class PlayerService {
 
     public List<Map<String, Object>> getAllQuarterBacksFromSeasonWithStats(int season) {
         return new PassingService(this.jdbcTemplate)
-                .getPassingStatsForPlayersBySeason(season, 
+                .getPassingStatsForPlayersBySeason(season,
                         new GetAllQuarterbacksWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
     }
 
@@ -61,6 +61,17 @@ public class PlayerService {
         return new ReceivingService(this.jdbcTemplate)
                 .getReceivingStatsForPlayersBySeason(season,
                         new GetAllTightEndsWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
+    }
+
+    public List<Map<String, Object>> getAllKsFromSeason(int season) {
+        return new GetAllKickersWhoPlayedInSeason(this.jdbcTemplate).execute(season);
+
+    }
+
+    public List<Map<String, Object>> getAllKsFromSeasonWithStats(int season) {
+        return new KickingService(this.jdbcTemplate)
+                .getKickingStatsForPlayersBySeason(season,
+                        new GetAllKickersWhoPlayedInSeasonWithStats(this.jdbcTemplate).execute(season));
     }
 
 }
