@@ -17,7 +17,6 @@ public class GetAllRunningBacksWhoPlayedInSeasonWithStats {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     public List<Map<String, Object>> execute(int season) {
         return this.jdbcTemplate.queryForList("SELECT DISTINCT\n" +
                 "player.player_id AS player_id, " +

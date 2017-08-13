@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
+@RequestMapping(value = "/draft")
 public class DraftController {
     private DraftService draftService;
 
@@ -17,8 +21,13 @@ public class DraftController {
         this.draftService = draftService;
     }
 
-    @RequestMapping(value = "/draft", method = RequestMethod.POST)
-    public ResponseEntity<Integer> getAllDefenses(@RequestBody String playerId) {
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Map<String,Object>>> getAllDrafted() {
+        return ResponseEntity.ok(this.draftService.getDraftedPlayers());
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Integer> draftPlayer(@RequestBody String playerId) {
         return ResponseEntity.ok(this.draftService.draftPlayer(playerId));
     }
 
