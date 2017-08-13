@@ -1,9 +1,15 @@
 <div class="row">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 text-center">
-      <h1 *ngIf="selectedPlayer != null">{{selectedPlayer.name}}  </h1>
+      <h1 *ngIf="selectedPlayer != null">{{selectedPlayer.full_name}} </h1>
       <h1 *ngIf="selectedPlayer == null">No Player Selected</h1>
-      <button type="button" class="btn btn-primary" (click)="alert('Drafted');" [disabled]="selectedPlayer == null">
+      <button *ngIf="draftedSelected" type="button" class="btn btn-primary" (click)="undraftPlayer(selectedPlayer.player_id);"
+              [disabled]="selectedPlayer == null">
+        Undraft
+        Player
+      </button>
+      <button *ngIf="!draftedSelected" type="button" class="btn btn-primary" (click)="draftPlayer(selectedPlayer.player_id);"
+              [disabled]="selectedPlayer == null">
         Draft
         Player
       </button>
@@ -14,16 +20,16 @@
 <div class="row">
   <div class="col-lg-10 col-lg-offset-1">
     <p-dataTable [value]="players" [resizableColumns]="true" selectionMode="single" [(selection)]="selectedPlayer">
-      <p-column field="name" header="Name" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+      <p-column field="full_name" header="Name" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
       <p-column field="position" header="Position" [sortable]="true"></p-column>
-      <p-column field="projectedPoints" header="Projected Points" [sortable]="true"></p-column>
-      <p-column field="previousYearPoints" header="Points Last Year" [sortable]="true"></p-column>
-      <p-column field="twoYearAgoPoints" header="Points 2 Years Ago" [sortable]="true"></p-column>
-      <p-column field="threeYearAgoPoints" header="Points 3 Years Ago" [sortable]="true"></p-column>
-      <p-column field="threeYearChange" header="% change past 3" [sortable]="true"></p-column>
-      <p-column field="fiveYearChange" header="% change past 5" [sortable]="true"></p-column>
-      <p-column field="newTeam" header="New Team" [sortable]="true"></p-column>
-      <p-column field="rookie" header="Rookie" [sortable]="true"></p-column>
+      <p-column field="points" header="Points Last Year" [sortable]="true"></p-column>
+      <p-column field="ppg" header="PPG" [sortable]="true"></p-column>
+      <p-column field="comparable_players" header="Comparable Players" [sortable]="true"></p-column>
+      <p-column field="three_year_average" header="3 year average" [sortable]="true"></p-column>
+      <p-column field="five_year_average" header="5 year average" [sortable]="true"></p-column>
+      <p-column field="percent_diff_top_25" header="% diff top 25" [sortable]="true"></p-column>
+      <p-column field="percent_diff_top_25_three_year" header="% diff 3 year" [sortable]="true"></p-column>
+      <p-column field="percent_diff_top_25_five_year" header="% diff 5 year" [sortable]="true"></p-column>
     </p-dataTable>
   </div>
 </div>

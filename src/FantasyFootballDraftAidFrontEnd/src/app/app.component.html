@@ -8,9 +8,10 @@
     <tab heading="Flex" (select)="changeData('flex')"></tab>
     <tab heading="K" (select)="changeData('k')"></tab>
     <tab heading="DEF" (select)="changeData('def')"></tab>
+    <tab heading="Drafted" (select)="changeData('drafted')"></tab>
   </tabset>
 </div>
 <div class="row" style="margin-top: 10px">
-  <players-table [players]="currentPlayers">
+  <players-table [players]="currentPlayers" [draftedSelected]="draftedSelected" (playerDrafted)="draftPlayer($event)" (playerUndrafted)="undraftPlayer($event)">
   </players-table>
 </div>

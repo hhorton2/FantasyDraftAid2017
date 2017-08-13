@@ -5,6 +5,13 @@ import {AppComponent} from "./app.component";
 import {AlertModule, TabsModule} from "ngx-bootstrap";
 import {PlayerTable} from "./components/players-table/players-table.component";
 import {DataTableModule, SharedModule} from "primeng/primeng";
+import {PassingService} from "./services/passing.service";
+import {RushingService} from "./services/rushing.service";
+import {ReceivingService} from "./services/receiving.service";
+import {DefenseService} from "./services/defense.service";
+import {HttpModule} from "@angular/http";
+import {KickingService} from "./services/kicking.service";
+import {DraftService} from "./services/draft.service";
 
 @NgModule({
   declarations: [
@@ -16,10 +23,11 @@ import {DataTableModule, SharedModule} from "primeng/primeng";
     AlertModule.forRoot(),
     TabsModule.forRoot(),
     DataTableModule,
-    SharedModule
+    SharedModule,
+    HttpModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [PassingService, RushingService, ReceivingService, DefenseService, KickingService, DraftService],
+bootstrap: [AppComponent]
 })
 export class AppModule {
 }
