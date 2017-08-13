@@ -23,6 +23,7 @@ public class GetAllDefensesWhoPlayedInSeasonWithStats {
     public List<Map<String, Object>> execute(int season) {
         return this.jdbcTemplate.queryForList("SELECT\n" +
                 "  play_player.team as full_name,\n" +
+                "team_id as player_id," +
                 "count(DISTINCT play_player.gsis_id) AS games_played, " +
                 "  sum(play_player.defense_int)                                                                             AS interceptions,\n" +
                 "  sum(play_player.defense_sk)                                                                              AS sacks,\n" +
@@ -34,12 +35,13 @@ public class GetAllDefensesWhoPlayedInSeasonWithStats {
                 "      play_player.defense_fgblk) + sum(play_player.defense_puntblk) + sum(defense_xpblk)                   AS blocked_fgs,\n" +
                 "  sum(play_player.defense_safe)                                                                            AS safeties\n" +
                 "FROM play_player\n" +
-                "  LEFT JOIN player\n" +
-                "    ON play_player.player_id = player.player_id\n" +
                 "  LEFT JOIN game\n" +
                 "    ON play_player.gsis_id = game.gsis_id\n" +
+                "LEFT JOIN team" +
+                " ON team.team_id = play_player.team " +
                 "WHERE season_type = 'Regular'\n" +
                 "      AND season_year = ?\n" +
-                "GROUP BY play_player.team", season);
+                " AND team.drafted = FALSE " +
+                "GROUP BY play_player.team, team_id", season);
     }
 }

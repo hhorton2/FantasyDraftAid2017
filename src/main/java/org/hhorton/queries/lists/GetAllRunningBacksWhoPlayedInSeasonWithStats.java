@@ -20,6 +20,7 @@ public class GetAllRunningBacksWhoPlayedInSeasonWithStats {
 
     public List<Map<String, Object>> execute(int season) {
         return this.jdbcTemplate.queryForList("SELECT DISTINCT\n" +
+                "player.player_id AS player_id, " +
                 "  player.player_id,\n" +
                 "  player.full_name,\n" +
                 "player.position," +
@@ -40,6 +41,7 @@ public class GetAllRunningBacksWhoPlayedInSeasonWithStats {
                 "WHERE season_type = 'Regular'\n" +
                 "      AND season_year = ?\n" +
                 "      AND position = 'RB'\n" +
-                "GROUP BY player.player_id, player.full_name", season);
+                " AND player.drafted = FALSE " +
+                "GROUP BY player.player_id, player.full_name, player.player_id", season);
     }
 }

@@ -19,6 +19,7 @@ public class GetRegularSeasonKickingStatsByPlayerIDAndSeason {
 
     public Map<String, Object> execute(String player_id, int season) {
         return this.jdbcTemplate.queryForMap("SELECT\n" +
+                "player.player_id AS player_id, " +
                 " coalesce(sum(play_player.kicking_xpmade),0) AS extra_points,\n" +
                 "  coalesce(sum(play_player.kicking_fgm), 0) + coalesce(fg1.fgm,0) + coalesce(fg2.fgm,0) + coalesce(fg3.fgm,0) + coalesce(fg4.fgm,0) AS fgm,\n" +
                 "  coalesce(sum(play_player.kicking_fgm),0) AS fg_0_to_19,\n" +
@@ -92,6 +93,7 @@ public class GetRegularSeasonKickingStatsByPlayerIDAndSeason {
                 "      AND season_year = ?\n" +
                 "      AND season_type = 'Regular'\n" +
                 "      AND position = 'K'\n" +
+                "      AND drafted = FALSE " +
                 " AND play_player.player_id = ?" +
                 "GROUP BY player.player_id, full_name, fg1.fgm, fg2.fgm, fg3.fgm, fg4.fgm", season, season, season, season, season, player_id);
     }

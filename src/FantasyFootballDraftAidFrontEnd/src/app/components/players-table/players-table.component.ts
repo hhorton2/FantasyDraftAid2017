@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {DraftService} from "../../services/draft.service";
 
 @Component({
   selector: 'players-table',
@@ -7,17 +8,35 @@ import {Component, Input, OnInit} from "@angular/core";
 })
 export class PlayerTable implements OnInit {
   @Input() players: any[];
+  @Input() draftedSelected: boolean = false;
+  @Output() playerDrafted: EventEmitter<string> = new EventEmitter<string>();
+  @Output() playerUndrafted: EventEmitter<string> = new EventEmitter<string>();
   selectedPlayer: any = null;
 
-  constructor() {
+  constructor(private draftService: DraftService) {
   }
 
   ngOnInit() {
-
   }
 
-  alert(message: string){
-    window.alert(message);
+  draftPlayer(id: string) {
+    this.selectedPlayer = null;
+    this.draftService.draftPlayer(id).subscribe(b => {
+      if(!b){
+        alert("Draft failed to save")
+      }
+    });
+    this.playerDrafted.emit(id);
+  }
+
+  undraftPlayer(id: string) {
+    this.selectedPlayer = null;
+    this.draftService.undraftPlayer(id).subscribe(b => {
+      if(!b){
+        alert("Undraft failed to save");
+      }
+    });
+    this.playerUndrafted.emit(id);
   }
 
 }

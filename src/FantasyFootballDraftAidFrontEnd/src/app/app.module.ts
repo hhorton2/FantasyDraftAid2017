@@ -11,6 +11,7 @@ import {ReceivingService} from "./services/receiving.service";
 import {DefenseService} from "./services/defense.service";
 import {HttpModule} from "@angular/http";
 import {KickingService} from "./services/kicking.service";
+import {DraftService} from "./services/draft.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import {KickingService} from "./services/kicking.service";
     SharedModule,
     HttpModule
   ],
-  providers: [PassingService, RushingService, ReceivingService, DefenseService, KickingService],
+  providers: [PassingService, RushingService, ReceivingService, DefenseService, KickingService, DraftService],
 bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,9 +1,15 @@
 <div class="row">
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 text-center">
-      <h1 *ngIf="selectedPlayer != null">{{selectedPlayer.full_name}}  </h1>
+      <h1 *ngIf="selectedPlayer != null">{{selectedPlayer.full_name}} </h1>
       <h1 *ngIf="selectedPlayer == null">No Player Selected</h1>
-      <button type="button" class="btn btn-primary" (click)="alert('Drafted');" [disabled]="selectedPlayer == null">
+      <button *ngIf="draftedSelected" type="button" class="btn btn-primary" (click)="undraftPlayer(selectedPlayer.player_id);"
+              [disabled]="selectedPlayer == null">
+        Undraft
+        Player
+      </button>
+      <button *ngIf="!draftedSelected" type="button" class="btn btn-primary" (click)="draftPlayer(selectedPlayer.player_id);"
+              [disabled]="selectedPlayer == null">
         Draft
         Player
       </button>

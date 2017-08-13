@@ -20,6 +20,7 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
 
     public List<Map<String, Object>> execute(int season) {
         return this.jdbcTemplate.queryForList("SELECT\n" +
+                "player.player_id AS player_id, " +
                 "  player.player_id,\n" +
                 "  full_name,\n" +
                 "player.position, " +
@@ -40,7 +41,7 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
                 "                 ON play_player.player_id = player.player_id\n" +
                 "               LEFT JOIN game\n" +
                 "                 ON play_player.gsis_id = game.gsis_id\n" +
-                "             WHERE kicking_fgm_yds >= 20 AND kicking_fgm_yds < 29\n" +
+                "             WHERE kicking_fgm_yds >= 20 AND kicking_fgm_yds <= 29\n" +
                 "                   AND season_year = ?\n" +
                 "                   AND season_type = 'Regular'\n" +
                 "                   AND position = 'K'\n" +
@@ -54,7 +55,7 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
                 "                 ON play_player.player_id = player.player_id\n" +
                 "               LEFT JOIN game\n" +
                 "                 ON play_player.gsis_id = game.gsis_id\n" +
-                "             WHERE kicking_fgm_yds >= 30 AND kicking_fgm_yds < 39\n" +
+                "             WHERE kicking_fgm_yds >= 30 AND kicking_fgm_yds <= 39\n" +
                 "                   AND season_year = ?\n" +
                 "                   AND season_type = 'Regular'\n" +
                 "                   AND position = 'K'\n" +
@@ -68,7 +69,7 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
                 "                 ON play_player.player_id = player.player_id\n" +
                 "               LEFT JOIN game\n" +
                 "                 ON play_player.gsis_id = game.gsis_id\n" +
-                "             WHERE kicking_fgm_yds >= 40 AND kicking_fgm_yds < 49\n" +
+                "             WHERE kicking_fgm_yds >= 40 AND kicking_fgm_yds <= 49\n" +
                 "                   AND season_year = ?\n" +
                 "                   AND season_type = 'Regular'\n" +
                 "                   AND position = 'K'\n" +
@@ -82,7 +83,7 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
                 "                 ON play_player.player_id = player.player_id\n" +
                 "               LEFT JOIN game\n" +
                 "                 ON play_player.gsis_id = game.gsis_id\n" +
-                "             WHERE kicking_fgm_yds > 50\n" +
+                "             WHERE kicking_fgm_yds >= 50\n" +
                 "                   AND season_year = ?\n" +
                 "                   AND season_type = 'Regular'\n" +
                 "                   AND position = 'K'\n" +
@@ -97,6 +98,7 @@ public class GetAllKickersWhoPlayedInSeasonWithStats {
                 "      AND season_year = ?\n" +
                 "      AND season_type = 'Regular'\n" +
                 "      AND position = 'K'\n" +
-                "GROUP BY player.player_id, full_name, fg1.fgm, fg2.fgm, fg3.fgm, fg4.fgm", season, season, season, season, season);
+                " AND player.drafted = FALSE " +
+                "GROUP BY player.player_id, full_name, fg1.fgm, fg2.fgm, fg3.fgm, fg4.fgm, player.player_id", season, season, season, season, season);
     }
 }
