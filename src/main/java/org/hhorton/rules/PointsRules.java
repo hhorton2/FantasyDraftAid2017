@@ -6,8 +6,8 @@ package org.hhorton.rules;
 public class PointsRules {
     public static final int POINTS_PER_RECEPTION = 1;
     public static final int Every_25_passing_yards = 1;
-    public static final int Each_passing_TD = 4;
-    public static final int Each_interception_thrown = -1;
+    public static final int Each_passing_TD = 6;
+    public static final int Each_interception_thrown = -2;
     public static final int Every_10_rushing_yards = 1;
     public static final int Each_rushing_TD = 6;
     public static final int Every_10_receiving_yards = 1;
